@@ -3,16 +3,16 @@ import {
   Container,
   CenteredIcon,
   Text,
-  ActionButton
+  Select,
+  AnimatedStartButton,
+  AnimatedHomeButton
 } from "../components/styledComponents";
-import logo from "../logo.svg";
 
 import Lottie from 'react-lottie';
 import * as animationData from "../assets/trivia-animation.json";
 
 class WelcomePage extends Component {
   state = {}
-
 
   render() {
     const lottieDefaultOptions = {
@@ -30,18 +30,21 @@ class WelcomePage extends Component {
           <Lottie options={lottieDefaultOptions}/>
         </CenteredIcon>
         <Text bold>Select Category</Text>
-        <select>
+        <Select>
           <option>Category 1</option>
           <option>Category 2</option>
-        </select>
+        </Select>
 
         <Text bold>Select Difficulty</Text>
-        <select>
+        <Select>
           <option>Easy</option>
           <option>Medium</option>
           <option>Hard</option>
-        </select>
-        <ActionButton onClick={this.props.startGame}>START</ActionButton>
+        </Select>
+        <AnimatedStartButton
+          text="Start"
+          onClick={this.props.startGame}
+        />
       </Container>
     );
   }

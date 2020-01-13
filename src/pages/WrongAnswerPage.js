@@ -3,7 +3,7 @@ import {
   Container,
   CenteredIcon,
   Text,
-  ActionButton
+  AnimatedHomeButton
 } from "../components/styledComponents";
 
 import Lottie from 'react-lottie';
@@ -35,9 +35,10 @@ const WrongAnswerPage = (props) => {
         You have answered {numOfCorrectAnswers} questions correctly,
         collected {totalPoints} pts.
       </Text>
-      <ActionButton onClick={resetGame}>
-        Go Home
-      </ActionButton>
+      <AnimatedHomeButton
+        text="Go Home"
+        onClick={resetGame}
+      />
     </Container>
   );
 }

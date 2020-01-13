@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import React from "react";
 
 const CenteredFlexDiv = styled.div`
   display: flex;
@@ -46,10 +47,83 @@ const ActionButton = styled(Button)`
   color: white;
   border: none;
   letter-spacing: 2px;
+  margin-top: 1.25rem;
+  width: 80%;
+  max-width: 256px;
   &:hover {
     background: rgba(18,133,153, 1);
   }
 `;
+
+// Animated Start Button
+const StartButton = styled(ActionButton)`
+  transition: all 0.5s;
+  padding: 1.15rem ;
+  span {
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 18px;
+    position: relative;
+    transition: 0.3s;
+    &:after {
+      content: "→";
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      right: -20px;
+      transition: .3s;
+    }
+  }
+  &:hover {
+    span {
+      padding-right: 25px;
+      &:after {
+        opacity: 1;
+        right: 0;
+      }
+    }
+  }
+`;
+
+// Animated Home Button
+const HomeButton = styled(ActionButton)`
+  transition: all 0.5s;
+  padding: 1.15rem ;
+  span {
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 18px;
+    position: relative;
+    transition: 0.3s;
+    &:before {
+      content: "←";
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      left: -20px;
+      transition: .3s;
+    }
+  }
+  &:hover {
+    span {
+      padding-left: 25px;
+      &:before {
+        opacity: 1;
+        left: 0;
+      }
+    }
+  }
+`;
+
+// Wrapper Component For Start Button
+const AnimatedStartButton = ({ text, ...props }) => {
+  return <StartButton {...props}><span>{text}</span></StartButton>
+};
+
+// Wrapper Component For Home Button
+const AnimatedHomeButton = ({ text, ...props }) => {
+  return <HomeButton {...props}><span>{text}</span></HomeButton>
+};
 
 const AnswerButton = styled(Button)`
   width: 100%;
@@ -78,6 +152,12 @@ const Text = styled.div`
   font-size: ${props => props.big && "36px"};
 `;
 
+const Select = styled.select`
+  width: 80%;
+  max-width: 256px;
+  margin-bottom: .75rem;
+`;
+
 export {
   CenteredFlexDiv,
   Container,
@@ -86,5 +166,9 @@ export {
   Button,
   ActionButton,
   AnswerButton,
-  Text
+  Text,
+  Select,
+  AnimatedStartButton,
+  AnimatedHomeButton,
+  StartButton
 };
