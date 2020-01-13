@@ -8,13 +8,15 @@ const CenteredFlexDiv = styled.div`
 
 const Container = styled(CenteredFlexDiv)`
   flex-direction: column;
+  padding: .5rem;
+  height: 100%;
 `;
 
-const Header = styled.div`
+const Header = styled(CenteredFlexDiv)`
   width: 100%;
   background: #333;
+  min-height: 3rem;
   color: white;
-  padding: 1rem;
   margin-bottom: 1rem;
 `;
 
@@ -52,7 +54,8 @@ const ActionButton = styled(Button)`
 `;
 
 const AnswerButton = styled(Button)`
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   margin: .4rem 0;
   border: 0;
   background: #999;

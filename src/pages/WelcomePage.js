@@ -14,9 +14,6 @@ class WelcomePage extends Component {
   render() {
     return (
       <Container>
-        <Header>
-          <Text bold>React Trivia</Text>
-        </Header>
         <CenteredIcon>
           <img src={logo} className="App-logo" alt="logo" />
         </CenteredIcon>

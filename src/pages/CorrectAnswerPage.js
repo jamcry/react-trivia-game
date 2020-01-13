@@ -14,10 +14,9 @@ const CorrectAnswerPage = (props) => {
     numOfQuestions,
     totalPoints
   } = props;
-  
+
   return (
     <Container>
-      <Header>Question {questionNumber}/{numOfQuestions}</Header>
       <CenteredIcon>CORRECT</CenteredIcon>
       <Text color="green" bold big>Correct!</Text>
       <Text>You have earned 200 pts!</Text>

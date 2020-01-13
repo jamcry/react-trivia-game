@@ -18,7 +18,6 @@ const WrongAnswerPage = (props) => {
 
   return (
     <Container>
-      <Header>Question {questionNumber}/{numOfQuestions}</Header>
       <CenteredIcon>WRONG</CenteredIcon>
       <Text color="red" bold big>Wrong!</Text>
       <Text>

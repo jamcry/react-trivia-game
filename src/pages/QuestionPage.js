@@ -28,7 +28,6 @@ class QuestionPage extends Component {
     ));
     return (
       <Container>
-        <Header>Question {questionNumber}/{numOfQuestions}</Header>
         <Text>{question}</Text>
         {answerButtons}
       </Container>

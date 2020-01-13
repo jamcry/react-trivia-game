@@ -4,8 +4,9 @@ import CorrectAnswerPage from './pages/CorrectAnswerPage';
 import WrongAnswerPage from './pages/WrongAnswerPage';
 import QuestionPage from './pages/QuestionPage';
 import questionData from "./questionData";
-// import { Header, Text } from './components/styledComponents';
+import { Header } from './components/styledComponents';
 
+// Constant variables for page rendering
 const pages = {
   WELCOME: "WELCOME_PAGE",
   QUESTION: "QUESTION_PAGE",
@@ -19,12 +20,12 @@ const defaultState = {
   numOfQuestions: 0,
   indexOfCurrentQuestion: -1,
   numOfCorrectAnswers: 0,
-  gameIsActive: false,
-  gameIsOver: false,
   currentQuestion: null,
   totalPoints: 0,
 };
 
+// TODO: Implement timer and pointing system according to
+// remaining time
 const POINTS_PER_QUESTION = 200;
 
 class App extends Component {
@@ -34,6 +35,7 @@ class App extends Component {
     this.loadQuestionData();
   };
 
+  // Mockup function for fetching data via API request
   loadQuestionData = () => {
     const data = questionData;
     this.setState({
@@ -44,10 +46,9 @@ class App extends Component {
 
   startGame = () => {
     this.setState(prevState => ({
-      gameIsActive: true,
+      currentPage: pages.QUESTION,
       indexOfCurrentQuestion: 0,
       currentQuestion: prevState.questions[0],
-      currentPage: pages.QUESTION
     }))
   };
 
@@ -79,10 +80,12 @@ class App extends Component {
   }
 
   render () {
-    const {currentPage} = this.state;
+    const {currentPage, numOfQuestions, indexOfCurrentQuestion} = this.state;
+    const questionNumber = indexOfCurrentQuestion + 1; //prevent-off-by-one
     const {WELCOME, QUESTION, CORRECT_ANSWER, WRONG_ANSWER} = pages;
 
     let currentComponent = null;
+    let headerContent = "React Trivia Game";
 
     if(currentPage === WELCOME) {
       currentComponent = (
@@ -91,48 +94,41 @@ class App extends Component {
     }
 
     if(currentPage === QUESTION) {
+      headerContent = `Question ${questionNumber} / ${numOfQuestions}`;
       currentComponent = (
         <QuestionPage
           data={this.state.currentQuestion}
           handleAnswer={this.handleAnswer}
-          questionNumber={this.state.indexOfCurrentQuestion+1}
-          numOfQuestions={this.state.numOfQuestions}
         />
       );
     }
 
     if(currentPage === CORRECT_ANSWER) {
+      headerContent = `Question ${questionNumber} / ${numOfQuestions}`;
       currentComponent = (
         <CorrectAnswerPage
           goNextQuestion={this.getNextQuestion}
-          questionNumber={this.state.indexOfCurrentQuestion+1}
-          numOfQuestions={this.state.numOfQuestions}
           totalPoints={this.state.totalPoints}
         />
       );
     }
 
     if(currentPage === WRONG_ANSWER) {
+      headerContent = `Question ${questionNumber} / ${numOfQuestions}`;
       currentComponent = (
         <WrongAnswerPage
           numOfCorrectAnswers={this.state.numOfCorrectAnswers}
           totalPoints={this.state.totalPoints}
           resetGame={this.resetGame}
-          questionNumber={this.state.indexOfCurrentQuestion+1}
-          numOfQuestions={this.state.numOfQuestions}
         />
       );
     }
 
     return (
       <div className="App">
-        {
-          /* TODO: Avoid repetitive passing {numOfQuestions, questionNumber}
-              by conditionally filling Header in App rather than each component.
-
-          // <Header><Text bold>Conditional Header Content</Text></Header>
-          */
-        }
+        <Header>
+          {headerContent}
+        </Header>
         {currentComponent}
       </div>
     );
