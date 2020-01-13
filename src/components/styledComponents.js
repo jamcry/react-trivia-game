@@ -21,10 +21,8 @@ const Header = styled(CenteredFlexDiv)`
 `;
 
 const CenteredIcon = styled(CenteredFlexDiv)`
-  width: 128px;
-  height: 128px;
-  border: 1px solid #333;
-  background: rgba(0,0,0,.15);
+  width: 256px;
+  height: 256px;
   margin-top: .5rem;
   margin-bottom: 1rem;
 `;

@@ -6,12 +6,26 @@ import {
   ActionButton
 } from "../components/styledComponents";
 
+import Lottie from 'react-lottie';
+import * as animationData from "../assets/correct-animation.json";
+
 const CorrectAnswerPage = (props) => {
   const { goNextQuestion, totalPoints } = props;
 
+  const lottieDefaultOptions = {
+    loop: false,
+    autoplay: true,
+    animationData: animationData.default,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  };
+
   return (
     <Container>
-      <CenteredIcon>CORRECT</CenteredIcon>
+      <CenteredIcon>
+        <Lottie options={lottieDefaultOptions} />
+      </CenteredIcon>
       <Text color="green" bold big>Correct!</Text>
       <Text>You have earned 200 pts!</Text>
       <Text bold>Total: {totalPoints} pts</Text>

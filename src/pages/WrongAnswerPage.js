@@ -6,6 +6,9 @@ import {
   ActionButton
 } from "../components/styledComponents";
 
+import Lottie from 'react-lottie';
+import * as animationData from "../assets/wrong-animation.json";
+
 const WrongAnswerPage = (props) => {
   const {
     resetGame,
@@ -13,9 +16,20 @@ const WrongAnswerPage = (props) => {
     numOfCorrectAnswers
   } = props;
 
+  const lottieDefaultOptions = {
+    loop: false,
+    autoplay: true,
+    animationData: animationData.default,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  };
+
   return (
     <Container>
-      <CenteredIcon>WRONG</CenteredIcon>
+      <CenteredIcon>
+        <Lottie options={lottieDefaultOptions} />
+      </CenteredIcon>
       <Text color="red" bold big>Wrong!</Text>
       <Text>
         You have answered {numOfCorrectAnswers} questions correctly,

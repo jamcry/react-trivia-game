@@ -7,14 +7,27 @@ import {
 } from "../components/styledComponents";
 import logo from "../logo.svg";
 
+import Lottie from 'react-lottie';
+import * as animationData from "../assets/trivia-animation.json";
+
 class WelcomePage extends Component {
   state = {}
 
+
   render() {
+    const lottieDefaultOptions = {
+      loop: true,
+      autoplay: true,
+      animationData: animationData.default,
+      rendererSettings: {
+        preserveAspectRatio: 'xMidYMid'
+      }
+    };
+
     return (
       <Container>
         <CenteredIcon>
-          <img src={logo} className="App-logo" alt="logo" />
+          <Lottie options={lottieDefaultOptions}/>
         </CenteredIcon>
         <Text bold>Select Category</Text>
         <select>
