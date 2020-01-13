@@ -6,18 +6,31 @@ import {
   AnswerButton
 } from "../components/styledComponents";
 
+const shuffle = (arr) => {
+  // Source: https://javascript.info/task/shuffle
+  return arr.sort(() => Math.random() - 0.5);
+}
+
 class QuestionPage extends Component {
   state = {}
 
   render() {
+    const { data, questionNumber, numOfQuestions } = this.props;
+    const { question, correct_answer, incorrect_answers } = data;
+    const options = shuffle([correct_answer, ...incorrect_answers]);
+    const answerButtons = options.map((option, index) => (
+      <AnswerButton
+        key={`option_${index}`}
+        onClick={() => this.props.handleAnswer(option)}
+      >
+        {option}
+      </AnswerButton>
+    ));
     return (
       <Container>
-        <Header>Question 1/15</Header>
-        <Text>What is bla..bla..?</Text>
-        <AnswerButton>A. Lorem ipsum dolor sit amet consectetur adipisicing elit.</AnswerButton>
-        <AnswerButton>B. Reiciendis quaerat placeat accusamus ipsum eum laudantium natus.</AnswerButton>
-        <AnswerButton>C. Aliquid amet accusantium ratione facere incidunt veniam sed cum fugit necessitatibus totam et numquam.</AnswerButton>
-        <AnswerButton>D. This is Wong!</AnswerButton>
+        <Header>Question {questionNumber}/{numOfQuestions}</Header>
+        <Text>{question}</Text>
+        {answerButtons}
       </Container>
     );
   }

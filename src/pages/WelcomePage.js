@@ -32,7 +32,7 @@ class WelcomePage extends Component {
           <option>Medium</option>
           <option>Hard</option>
         </select>
-        <ActionButton>START</ActionButton>
+        <ActionButton onClick={this.props.startGame}>START</ActionButton>
       </Container>
     );
   }

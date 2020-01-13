@@ -7,15 +7,26 @@ import {
   ActionButton
 } from "../components/styledComponents";
 
-const CorrectAnswerPage = () => {
+const CorrectAnswerPage = (props) => {
+  const {
+    goNextQuestion,
+    questionNumber, 
+    numOfQuestions,
+    totalPoints
+  } = props;
+  
   return (
     <Container>
-      <Header>Question 1/15</Header>
+      <Header>Question {questionNumber}/{numOfQuestions}</Header>
       <CenteredIcon>CORRECT</CenteredIcon>
       <Text color="green" bold big>Correct!</Text>
       <Text>You have earned 200 pts!</Text>
-      <Text bold>Total: 350 pts</Text>
-      <ActionButton>Next Question</ActionButton>
+      <Text bold>Total: {totalPoints} pts</Text>
+      <ActionButton
+        onClick={goNextQuestion}
+      >
+        Next Question
+      </ActionButton>
     </Container>
   );
 }

@@ -7,14 +7,27 @@ import {
   ActionButton
 } from "../components/styledComponents";
 
-const WrongAnswerPage = () => {
+const WrongAnswerPage = (props) => {
+  const {
+    questionNumber,
+    numOfQuestions,
+    resetGame,
+    totalPoints,
+    numOfCorrectAnswers
+  } = props;
+
   return (
     <Container>
-      <Header>Question 1/15</Header>
+      <Header>Question {questionNumber}/{numOfQuestions}</Header>
       <CenteredIcon>WRONG</CenteredIcon>
       <Text color="red" bold big>Wrong!</Text>
-      <Text>Game over! You have finished with 350 pts.</Text>
-      <ActionButton onClick={() => alert("going home!")}>Go Home</ActionButton>
+      <Text>
+        You have answered {numOfCorrectAnswers} questions correctly,
+        collected {totalPoints} pts.
+      </Text>
+      <ActionButton onClick={resetGame}>
+        Go Home
+      </ActionButton>
     </Container>
   );
 }
