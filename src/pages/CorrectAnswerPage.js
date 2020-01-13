@@ -1,19 +1,13 @@
 import React from 'react'
 import {
   Container,
-  Header,
   CenteredIcon,
   Text,
   ActionButton
 } from "../components/styledComponents";
 
 const CorrectAnswerPage = (props) => {
-  const {
-    goNextQuestion,
-    questionNumber, 
-    numOfQuestions,
-    totalPoints
-  } = props;
+  const { goNextQuestion, totalPoints } = props;
 
   return (
     <Container>

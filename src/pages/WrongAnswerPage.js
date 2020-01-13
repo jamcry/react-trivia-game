@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   Container,
-  Header,
   CenteredIcon,
   Text,
   ActionButton
@@ -9,8 +8,6 @@ import {
 
 const WrongAnswerPage = (props) => {
   const {
-    questionNumber,
-    numOfQuestions,
     resetGame,
     totalPoints,
     numOfCorrectAnswers

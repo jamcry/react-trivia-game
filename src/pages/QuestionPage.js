@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {
   Container,
-  Header,
   Text,
   AnswerButton
 } from "../components/styledComponents";
@@ -15,8 +14,7 @@ class QuestionPage extends Component {
   state = {}
 
   render() {
-    const { data, questionNumber, numOfQuestions } = this.props;
-    const { question, correct_answer, incorrect_answers } = data;
+    const { question, correct_answer, incorrect_answers } = this.props.data;
     const options = shuffle([correct_answer, ...incorrect_answers]);
     const answerButtons = options.map((option, index) => (
       <AnswerButton
