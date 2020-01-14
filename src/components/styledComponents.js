@@ -128,11 +128,12 @@ const AnimatedHomeButton = ({ text, ...props }) => {
 const AnswerButton = styled(Button)`
   width: 100%;
   max-width: 400px;
-  margin: .4rem 0;
+  margin: .5rem 0;
   border: 0;
   background: #999;
   color: white;
-  border-bottom: 3px solid #666;
+  border-bottom: 5px solid #666;
+  padding: 1rem;
   &:hover {
     background: #DE6D1D;
     border-color: #9B4C14;
@@ -145,18 +146,28 @@ const AnswerButton = styled(Button)`
 `;
 
 const Text = styled.div`
-  line-height: 1.7rem;
+  line-height: 1.5rem;
+  margin-top: .75rem;
+  margin-left: .5rem;
+  margin-right: .5rem;
   font-size: 16px;
   font-weight: ${props => props.bold && "bold"};
   color: ${props => props.color};
   font-size: ${props => props.big && "36px"};
 `;
 
+const QuestionText = styled(Text)`
+  margin-bottom: 2.5rem;
+`;
+
 const Select = styled.select`
   width: 80%;
   max-width: 256px;
   margin-bottom: .75rem;
+  height: 2.5rem;
 `;
+
+
 
 export {
   CenteredFlexDiv,
@@ -167,6 +178,7 @@ export {
   ActionButton,
   AnswerButton,
   Text,
+  QuestionText,
   Select,
   AnimatedStartButton,
   AnimatedHomeButton,

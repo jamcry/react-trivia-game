@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import {
   Container,
-  Text,
+  QuestionText,
   AnswerButton
 } from "../components/styledComponents";
 
+// Shuffles the items in the input array
 const shuffle = (arr) => {
   // Source: https://javascript.info/task/shuffle
   return arr.sort(() => Math.random() - 0.5);
@@ -26,7 +27,7 @@ class QuestionPage extends Component {
     ));
     return (
       <Container>
-        <Text>{question}</Text>
+        <QuestionText>{question}</QuestionText>
         {answerButtons}
       </Container>
     );

@@ -5,13 +5,15 @@ import WrongAnswerPage from './pages/WrongAnswerPage';
 import QuestionPage from './pages/QuestionPage';
 import questionData from "./questionData";
 import { Header } from './components/styledComponents';
+import WinPage from './pages/WinPage';
 
 // Constant variables for page rendering
 const pages = {
   WELCOME: "WELCOME_PAGE",
   QUESTION: "QUESTION_PAGE",
   CORRECT_ANSWER: "CORRECT_ANSWER_PAGE",
-  WRONG_ANSWER: "WRONG_ANSWER_PAGE"
+  WRONG_ANSWER: "WRONG_ANSWER_PAGE",
+  WIN: "WIN_PAGE"
 };
 
 const defaultState = {
@@ -60,7 +62,7 @@ class App extends Component {
     const correctAnswer = this.state.currentQuestion.correct_answer;
     if(answer === correctAnswer) {
       this.setState(prevState => ({
-        currentPage: pages.CORRECT_ANSWER,
+        currentPage: (prevState.numOfCorrectAnswers+1===prevState.numOfQuestions) ? pages.WIN : pages.CORRECT_ANSWER,
         totalPoints: prevState.totalPoints + POINTS_PER_QUESTION,
         numOfCorrectAnswers: prevState.numOfCorrectAnswers + 1
       }));
@@ -82,7 +84,7 @@ class App extends Component {
   render () {
     const {currentPage, numOfQuestions, indexOfCurrentQuestion} = this.state;
     const questionNumber = indexOfCurrentQuestion + 1; //prevent-off-by-one
-    const {WELCOME, QUESTION, CORRECT_ANSWER, WRONG_ANSWER} = pages;
+    const {WELCOME, QUESTION, CORRECT_ANSWER, WRONG_ANSWER, WIN} = pages;
 
     let currentComponent = null;
     let headerContent = "React Trivia Game";
@@ -117,6 +119,17 @@ class App extends Component {
       headerContent = `Question ${questionNumber} / ${numOfQuestions}`;
       currentComponent = (
         <WrongAnswerPage
+          numOfCorrectAnswers={this.state.numOfCorrectAnswers}
+          totalPoints={this.state.totalPoints}
+          resetGame={this.resetGame}
+        />
+      );
+    }
+
+    if(currentPage === WIN) {
+      headerContent = `YOU WIN !`;
+      currentComponent = (
+        <WinPage
           numOfCorrectAnswers={this.state.numOfCorrectAnswers}
           totalPoints={this.state.totalPoints}
           resetGame={this.resetGame}

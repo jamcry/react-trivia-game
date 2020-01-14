@@ -4,8 +4,7 @@ import {
   CenteredIcon,
   Text,
   Select,
-  AnimatedStartButton,
-  AnimatedHomeButton
+  AnimatedStartButton
 } from "../components/styledComponents";
 
 import Lottie from 'react-lottie';
@@ -27,7 +26,7 @@ class WelcomePage extends Component {
     return (
       <Container>
         <CenteredIcon>
-          <Lottie options={lottieDefaultOptions}/>
+          <Lottie options={lottieDefaultOptions} />
         </CenteredIcon>
         <Text bold>Select Category</Text>
         <Select>
