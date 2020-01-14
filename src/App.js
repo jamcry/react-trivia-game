@@ -6,6 +6,7 @@ import QuestionPage from './pages/QuestionPage';
 import questionData from "./questionData";
 import { Header } from './components/styledComponents';
 import WinPage from './pages/WinPage';
+import OverlayLoader from './components/OverlayLoader';
 
 // Constant variables for page rendering
 const pages = {
@@ -33,25 +34,24 @@ const POINTS_PER_QUESTION = 200;
 class App extends Component {
   state = defaultState;
 
-  componentDidMount = () => {
-    this.loadQuestionData();
-  };
-
   // Mockup function for fetching data via API request
   loadQuestionData = () => {
-    const data = questionData;
+    // Set loading state true before attempting API request
     this.setState({
-      questions: data.results,
-      numOfQuestions: data.results.length
+      isLoading: true
     });
-  };
-
-  startGame = () => {
-    this.setState(prevState => ({
-      currentPage: pages.QUESTION,
-      indexOfCurrentQuestion: 0,
-      currentQuestion: prevState.questions[0],
-    }))
+    // Mockup for API request, returns data after 2 seconds
+    const data = questionData;
+    setTimeout(
+      () => this.setState({
+        currentPage: pages.QUESTION,
+        questions: data.results,
+        numOfQuestions: data.results.length,
+        isLoading: false,
+        indexOfCurrentQuestion: 0,
+        currentQuestion: data.results[0]
+      })
+    ,22000);
   };
 
   resetGame = () => {
@@ -91,7 +91,7 @@ class App extends Component {
 
     if(currentPage === WELCOME) {
       currentComponent = (
-        <WelcomePage startGame={this.startGame} />
+        <WelcomePage startGame={this.loadQuestionData} />
       );
     }
 
@@ -136,12 +136,12 @@ class App extends Component {
         />
       );
     }
+    
 
     return (
       <div className="App">
-        <Header>
-          {headerContent}
-        </Header>
+        <Header>{headerContent}</Header>
+        { this.state.isLoading && <OverlayLoader /> }
         {currentComponent}
       </div>
     );

@@ -56,6 +56,7 @@ const ActionButton = styled(Button)`
 `;
 
 // Animated Start Button
+// Button animations was adapted from: https://www.w3schools.com/howto/howto_css_animate_buttons.asp
 const StartButton = styled(ActionButton)`
   transition: all 0.5s;
   padding: 1.15rem ;
@@ -147,13 +148,10 @@ const AnswerButton = styled(Button)`
 
 const Text = styled.div`
   line-height: 1.5rem;
-  margin-top: .75rem;
-  margin-left: .5rem;
-  margin-right: .5rem;
-  font-size: 16px;
+  margin: .75rem .5rem .25rem .5rem;
+  font-size: ${props => props.big ? "36px" : "16px"};
   font-weight: ${props => props.bold && "bold"};
   color: ${props => props.color};
-  font-size: ${props => props.big && "36px"};
 `;
 
 const QuestionText = styled(Text)`
@@ -166,8 +164,6 @@ const Select = styled.select`
   margin-bottom: .75rem;
   height: 2.5rem;
 `;
-
-
 
 export {
   CenteredFlexDiv,
