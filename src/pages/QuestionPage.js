@@ -12,22 +12,54 @@ const shuffle = (arr) => {
 }
 
 class QuestionPage extends Component {
-  state = {}
+  state = {
+    question: "",
+    options: [],
+    remainingSeconds: 15
+  }
 
-  render() {
+  decrementRemainingSeconds = () => {
+    this.setState(prevState => ({
+      remainingSeconds: prevState.remainingSeconds - 1
+    }));
+  };
+
+  componentDidMount = () => {
     const { question, correct_answer, incorrect_answers } = this.props.data;
     const options = shuffle([correct_answer, ...incorrect_answers]);
-    const answerButtons = options.map((option, index) => (
+    const timer = setInterval(this.decrementRemainingSeconds, 1000);
+    this.setState({
+      question,
+      options,
+      timer
+    });
+  };
+
+  componentDidUpdate = () => {
+    if(this.state.remainingSeconds === 0) {
+      this.props.handleTimeOver();
+    }
+  }
+
+  componentWillUnmount = () => {
+    // Stop the timer before unmounting
+    clearInterval(this.state.timer);
+  }
+
+  render() {
+    const answerButtons = this.state.options.map((option, index) => (
       <AnswerButton
         key={`option_${index}`}
-        onClick={() => this.props.handleAnswer(option)}
+        onClick={() => this.props.handleAnswer(option, this.state.remainingSeconds)}
       >
         {option}
       </AnswerButton>
     ));
+
     return (
       <Container>
-        <QuestionText>{question}</QuestionText>
+        <h3>Time:{this.state.remainingSeconds}</h3>
+        <QuestionText>{this.state.question}</QuestionText>
         {answerButtons}
       </Container>
     );

@@ -3,18 +3,19 @@ import {
   Container,
   CenteredIcon,
   Text,
-  ActionButton
+  AnimatedHomeButton
 } from "../components/styledComponents";
 
 import Lottie from 'react-lottie';
-import * as animationData from "../assets/correct-animation.json";
+import * as animationData from "../assets/time-is-up-animation.json";
 
-const CorrectAnswerPage = (props) => {
-  const { goNextQuestion, totalPoints, lastEarnedPoints } = props;
+const TimeIsUpPage = (props) => {
+  const { resetGame, totalPoints } = props;
 
   const lottieDefaultOptions = {
     loop: false,
     autoplay: true,
+    speed: '1.75',
     animationData: animationData.default,
     rendererSettings: {
       preserveAspectRatio: 'xMidYMid slice'
@@ -26,16 +27,15 @@ const CorrectAnswerPage = (props) => {
       <CenteredIcon>
         <Lottie options={lottieDefaultOptions} />
       </CenteredIcon>
-      <Text color="green" bold big>Correct!</Text>
-      <Text>You have earned {lastEarnedPoints} pts!</Text>
+      <Text color="red" bold big>Time's Up!</Text>
+      <Text>You haven't answered the question in 15 seconds! Game Over!</Text>
       <Text bold>Total: {totalPoints} pts</Text>
-      <ActionButton
-        onClick={goNextQuestion}
-      >
-        Next Question
-      </ActionButton>
+      <AnimatedHomeButton
+        text="Try Again"
+        onClick={resetGame}
+      />
     </Container>
   );
 }
 
-export default CorrectAnswerPage;
+export default TimeIsUpPage;

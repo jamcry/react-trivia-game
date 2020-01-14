@@ -16,9 +16,14 @@ const Container = styled(CenteredFlexDiv)`
 const Header = styled(CenteredFlexDiv)`
   width: 100%;
   background: #333;
-  min-height: 3rem;
+  height: 5rem !important;
   color: white;
   margin-bottom: 1rem;
+`;
+
+const HeaderText = styled.h1`
+  font-size: 1.4rem;
+  letter-spacing: 1px;
 `;
 
 const CenteredIcon = styled(CenteredFlexDiv)`
@@ -169,6 +174,7 @@ export {
   CenteredFlexDiv,
   Container,
   Header,
+  HeaderText,
   CenteredIcon,
   Button,
   ActionButton,

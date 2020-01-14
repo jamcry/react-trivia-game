@@ -4,9 +4,10 @@ import CorrectAnswerPage from './pages/CorrectAnswerPage';
 import WrongAnswerPage from './pages/WrongAnswerPage';
 import QuestionPage from './pages/QuestionPage';
 import questionData from "./questionData";
-import { Header } from './components/styledComponents';
+import { Header, HeaderText } from './components/styledComponents';
 import WinPage from './pages/WinPage';
 import OverlayLoader from './components/OverlayLoader';
+import TimeIsUpPage from './pages/TimeIsUpPage';
 
 // Constant variables for page rendering
 const pages = {
@@ -14,7 +15,8 @@ const pages = {
   QUESTION: "QUESTION_PAGE",
   CORRECT_ANSWER: "CORRECT_ANSWER_PAGE",
   WRONG_ANSWER: "WRONG_ANSWER_PAGE",
-  WIN: "WIN_PAGE"
+  WIN: "WIN_PAGE",
+  TIMES_UP: "TIMES_UP_PAGE"
 };
 
 const defaultState = {
@@ -26,10 +28,6 @@ const defaultState = {
   currentQuestion: null,
   totalPoints: 0,
 };
-
-// TODO: Implement timer and pointing system according to
-// remaining time
-const POINTS_PER_QUESTION = 200;
 
 class App extends Component {
   state = defaultState;
@@ -51,19 +49,21 @@ class App extends Component {
         indexOfCurrentQuestion: 0,
         currentQuestion: data.results[0]
       })
-    ,22000);
+    ,2000);
   };
 
   resetGame = () => {
-    this.setState(defaultState, () => this.loadQuestionData());
+    this.setState(defaultState);
   };
 
-  handleAnswer = (answer) => {
+  handleAnswer = (answer, remainingSeconds) => {
     const correctAnswer = this.state.currentQuestion.correct_answer;
     if(answer === correctAnswer) {
+      const pointsForQuestion = 50 + remainingSeconds * 10;
       this.setState(prevState => ({
         currentPage: (prevState.numOfCorrectAnswers+1===prevState.numOfQuestions) ? pages.WIN : pages.CORRECT_ANSWER,
-        totalPoints: prevState.totalPoints + POINTS_PER_QUESTION,
+        totalPoints: prevState.totalPoints + pointsForQuestion,
+        lastEarnedPoints: pointsForQuestion,
         numOfCorrectAnswers: prevState.numOfCorrectAnswers + 1
       }));
     } else {
@@ -72,6 +72,12 @@ class App extends Component {
       });
     }
   }
+
+  handleTimeOver = () => {
+    this.setState({
+      currentPage: pages.TIMES_UP
+    });
+  };
 
   getNextQuestion = () => {
     this.setState(prevState=> ({
@@ -84,10 +90,10 @@ class App extends Component {
   render () {
     const {currentPage, numOfQuestions, indexOfCurrentQuestion} = this.state;
     const questionNumber = indexOfCurrentQuestion + 1; //prevent-off-by-one
-    const {WELCOME, QUESTION, CORRECT_ANSWER, WRONG_ANSWER, WIN} = pages;
+    const {WELCOME, QUESTION, CORRECT_ANSWER, WRONG_ANSWER, WIN, TIMES_UP} = pages;
 
     let currentComponent = null;
-    let headerContent = "React Trivia Game";
+    let headerContent = <HeaderText>React Trivia Game</HeaderText>;
 
     if(currentPage === WELCOME) {
       currentComponent = (
@@ -101,6 +107,7 @@ class App extends Component {
         <QuestionPage
           data={this.state.currentQuestion}
           handleAnswer={this.handleAnswer}
+          handleTimeOver={this.handleTimeOver}
         />
       );
     }
@@ -111,6 +118,7 @@ class App extends Component {
         <CorrectAnswerPage
           goNextQuestion={this.getNextQuestion}
           totalPoints={this.state.totalPoints}
+          lastEarnedPoints={this.state.lastEarnedPoints}
         />
       );
     }
@@ -125,6 +133,17 @@ class App extends Component {
         />
       );
     }
+
+        if(currentPage === TIMES_UP) {
+      headerContent = `Time's Up!`;
+      currentComponent = (
+        <TimeIsUpPage
+          totalPoints={this.state.totalPoints}
+          resetGame={this.resetGame}
+        />
+      );
+    }
+
 
     if(currentPage === WIN) {
       headerContent = `YOU WIN !`;
