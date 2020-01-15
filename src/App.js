@@ -3,10 +3,10 @@ import WelcomePage from './pages/WelcomePage';
 import CorrectAnswerPage from './pages/CorrectAnswerPage';
 import WrongAnswerPage from './pages/WrongAnswerPage';
 import QuestionPage from './pages/QuestionPage';
-import { Header, HeaderText } from './components/styledComponents';
 import WinPage from './pages/WinPage';
-import OverlayLoader from './components/OverlayLoader';
 import TimeIsUpPage from './pages/TimeIsUpPage';
+import { Header, HeaderText } from './components/styledComponents';
+import OverlayLoader from './components/OverlayLoader';
 
 // Constant variables for page rendering
 const pages = {
@@ -30,24 +30,24 @@ const defaultState = {
 
 class App extends Component {
   state = defaultState;
-  
+
   // Fetches question data via API and saves it into state
-  fetchQuestionData = (categoryId="", difficulty="easy") => {
+  fetchQuestionData = (categoryId = "", difficulty = "easy") => {
     this.setState({ isLoading: true });
     const numOfQuestions = 10;
     // Open Trivia DB API Reference: https://opentdb.com/api_config.php
     const url = `https://opentdb.com/api.php?amount=${numOfQuestions}&category=${categoryId}&difficulty=${difficulty}`;
     fetch(url)
-    .then(res => res.json())
-    .then(data => this.setState({
-      currentPage: pages.QUESTION,
-      questions: data.results,
-      numOfQuestions: data.results.length,
-      isLoading: false,
-      indexOfCurrentQuestion: 0,
-      currentQuestion: data.results[0]
-    }))
-    .catch(err => console.error(err.message));
+      .then(res => res.json())
+      .then(data => this.setState({
+        currentPage: pages.QUESTION,
+        questions: data.results,
+        numOfQuestions: data.results.length,
+        isLoading: false,
+        indexOfCurrentQuestion: 0,
+        currentQuestion: data.results[0]
+      }))
+      .catch(err => console.error(err.message));
   };
 
   resetGame = () => {
@@ -56,10 +56,10 @@ class App extends Component {
 
   handleAnswer = (answer, remainingSeconds) => {
     const correctAnswer = this.state.currentQuestion.correct_answer;
-    if(answer === correctAnswer) {
+    if (answer === correctAnswer) {
       const pointsForQuestion = 50 + remainingSeconds * 10;
       this.setState(prevState => ({
-        currentPage: (prevState.numOfCorrectAnswers+1===prevState.numOfQuestions) ? pages.WIN : pages.CORRECT_ANSWER,
+        currentPage: (prevState.numOfCorrectAnswers + 1 === prevState.numOfQuestions) ? pages.WIN : pages.CORRECT_ANSWER,
         totalPoints: prevState.totalPoints + pointsForQuestion,
         lastEarnedPoints: pointsForQuestion,
         numOfCorrectAnswers: prevState.numOfCorrectAnswers + 1
@@ -78,28 +78,28 @@ class App extends Component {
   };
 
   getNextQuestion = () => {
-    this.setState(prevState=> ({
+    this.setState(prevState => ({
       indexOfCurrentQuestion: prevState.indexOfCurrentQuestion + 1,
-      currentQuestion: prevState.questions[prevState.indexOfCurrentQuestion+1],
+      currentQuestion: prevState.questions[prevState.indexOfCurrentQuestion + 1],
       currentPage: pages.QUESTION
     }))
   }
 
-  render () {
-    const {currentPage, numOfQuestions, indexOfCurrentQuestion} = this.state;
+  render() {
+    const { currentPage, numOfQuestions, indexOfCurrentQuestion } = this.state;
     const questionNumber = indexOfCurrentQuestion + 1; //prevent-off-by-one
-    const {WELCOME, QUESTION, CORRECT_ANSWER, WRONG_ANSWER, WIN, TIMES_UP} = pages;
+    const { WELCOME, QUESTION, CORRECT_ANSWER, WRONG_ANSWER, WIN, TIMES_UP } = pages;
 
     let currentComponent = null;
     let headerContent = <HeaderText>React Trivia Game</HeaderText>;
 
-    if(currentPage === WELCOME) {
+    if (currentPage === WELCOME) {
       currentComponent = (
         <WelcomePage startGame={this.fetchQuestionData} />
       );
     }
 
-    if(currentPage === QUESTION) {
+    if (currentPage === QUESTION) {
       headerContent = `Question ${questionNumber} / ${numOfQuestions}`;
       currentComponent = (
         <QuestionPage
@@ -110,7 +110,7 @@ class App extends Component {
       );
     }
 
-    if(currentPage === CORRECT_ANSWER) {
+    if (currentPage === CORRECT_ANSWER) {
       headerContent = `Question ${questionNumber} / ${numOfQuestions}`;
       currentComponent = (
         <CorrectAnswerPage
@@ -121,7 +121,7 @@ class App extends Component {
       );
     }
 
-    if(currentPage === WRONG_ANSWER) {
+    if (currentPage === WRONG_ANSWER) {
       headerContent = `Question ${questionNumber} / ${numOfQuestions}`;
       currentComponent = (
         <WrongAnswerPage
@@ -132,7 +132,7 @@ class App extends Component {
       );
     }
 
-    if(currentPage === TIMES_UP) {
+    if (currentPage === TIMES_UP) {
       headerContent = `Time's Up!`;
       currentComponent = (
         <TimeIsUpPage
@@ -143,7 +143,7 @@ class App extends Component {
     }
 
 
-    if(currentPage === WIN) {
+    if (currentPage === WIN) {
       headerContent = `YOU WIN !`;
       currentComponent = (
         <WinPage
@@ -153,11 +153,11 @@ class App extends Component {
         />
       );
     }
-    
+
     return (
       <div className="App">
         <Header>{headerContent}</Header>
-        { this.state.isLoading && <OverlayLoader /> }
+        {this.state.isLoading && <OverlayLoader />}
         {currentComponent}
       </div>
     );

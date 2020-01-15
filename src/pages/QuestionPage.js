@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
+// import he for decoding HTML encoded question texts
+import he from "he";
 import {
   Container,
   QuestionText,
   AnswerButton
 } from "../components/styledComponents";
 
-// import he for decoding HTML encoded question texts
-import he from "he";
-
-// Shuffles the items in the input array
+/* Shuffles the items in the input array
+ Source: https://javascript.info/task/shuffle */
 const shuffle = (arr) => {
-  // Source: https://javascript.info/task/shuffle
   return arr.sort(() => Math.random() - 0.5);
 }
 
@@ -39,7 +38,7 @@ class QuestionPage extends Component {
   };
 
   componentDidUpdate = () => {
-    if(this.state.remainingSeconds === 0) {
+    if (this.state.remainingSeconds === 0) {
       this.props.handleTimeOver();
     }
   }

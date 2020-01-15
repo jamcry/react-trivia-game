@@ -24,7 +24,7 @@ const OverlayLoader = () => {
       preserveAspectRatio: 'xMidYMid'
     }
   };
-  
+
   return (
     <OverlayLoaderContainer>
       <Lottie options={lottieDefaultOptions} />

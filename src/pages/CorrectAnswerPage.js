@@ -1,4 +1,6 @@
 import React from 'react'
+import Lottie from 'react-lottie';
+import * as animationData from "../assets/correct-animation.json";
 import {
   Container,
   CenteredIcon,
@@ -6,25 +8,11 @@ import {
   ActionButton
 } from "../components/styledComponents";
 
-import Lottie from 'react-lottie';
-import * as animationData from "../assets/correct-animation.json";
-
-const CorrectAnswerPage = (props) => {
-  const { goNextQuestion, totalPoints, lastEarnedPoints } = props;
-
-  const lottieDefaultOptions = {
-    loop: false,
-    autoplay: true,
-    animationData: animationData.default,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
-    }
-  };
-
+const CorrectAnswerPage = ({ goNextQuestion, totalPoints, lastEarnedPoints }) => {
   return (
     <Container>
       <CenteredIcon>
-        <Lottie options={lottieDefaultOptions} />
+        <Lottie options={{ animationData: animationData.default, loop: false }} />
       </CenteredIcon>
       <Text color="green" bold big>Correct!</Text>
       <Text>You have earned {lastEarnedPoints} pts!</Text>

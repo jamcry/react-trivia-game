@@ -1,4 +1,6 @@
 import React from 'react'
+import Lottie from 'react-lottie';
+import * as animationData from "../assets/time-is-up-animation.json";
 import {
   Container,
   CenteredIcon,
@@ -6,26 +8,11 @@ import {
   AnimatedHomeButton
 } from "../components/styledComponents";
 
-import Lottie from 'react-lottie';
-import * as animationData from "../assets/time-is-up-animation.json";
-
-const TimeIsUpPage = (props) => {
-  const { resetGame, totalPoints } = props;
-
-  const lottieDefaultOptions = {
-    loop: false,
-    autoplay: true,
-    speed: '1.75',
-    animationData: animationData.default,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
-    }
-  };
-
+const TimeIsUpPage = ({ resetGame, totalPoints }) => {
   return (
     <Container>
       <CenteredIcon>
-        <Lottie options={lottieDefaultOptions} />
+        <Lottie options={{ animationData: animationData.default, loop: false }} />
       </CenteredIcon>
       <Text color="red" bold big>Time's Up!</Text>
       <Text>You haven't answered the question in 15 seconds! Game Over!</Text>

@@ -1,4 +1,6 @@
 import React from 'react'
+import Lottie from 'react-lottie';
+import * as animationData from "../assets/wrong-animation.json";
 import {
   Container,
   CenteredIcon,
@@ -6,29 +8,11 @@ import {
   AnimatedHomeButton
 } from "../components/styledComponents";
 
-import Lottie from 'react-lottie';
-import * as animationData from "../assets/wrong-animation.json";
-
-const WrongAnswerPage = (props) => {
-  const {
-    resetGame,
-    totalPoints,
-    numOfCorrectAnswers
-  } = props;
-
-  const lottieDefaultOptions = {
-    loop: false,
-    autoplay: true,
-    animationData: animationData.default,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
-    }
-  };
-
+const WrongAnswerPage = ({ resetGame, totalPoints, numOfCorrectAnswers }) => {
   return (
     <Container>
       <CenteredIcon>
-        <Lottie options={lottieDefaultOptions} />
+        <Lottie options={{ animationData: animationData.default, loop: false }} />
       </CenteredIcon>
       <Text color="red" bold big>Wrong!</Text>
       <Text>

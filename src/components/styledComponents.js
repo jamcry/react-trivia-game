@@ -163,6 +163,13 @@ const QuestionText = styled(Text)`
   margin-bottom: 2.5rem;
 `;
 
+const Form = styled.form`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+`;
+
 const Select = styled.select`
   width: 80%;
   max-width: 256px;
@@ -181,6 +188,7 @@ export {
   AnswerButton,
   Text,
   QuestionText,
+  Form,
   Select,
   AnimatedStartButton,
   AnimatedHomeButton,
