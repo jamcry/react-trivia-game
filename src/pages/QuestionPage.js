@@ -5,6 +5,9 @@ import {
   AnswerButton
 } from "../components/styledComponents";
 
+// import he for decoding HTML encoded question texts
+import he from "he";
+
 // Shuffles the items in the input array
 const shuffle = (arr) => {
   // Source: https://javascript.info/task/shuffle
@@ -52,14 +55,14 @@ class QuestionPage extends Component {
         key={`option_${index}`}
         onClick={() => this.props.handleAnswer(option, this.state.remainingSeconds)}
       >
-        {option}
+        {he.decode(option)}
       </AnswerButton>
     ));
 
     return (
       <Container>
         <h3>Time:{this.state.remainingSeconds}</h3>
-        <QuestionText>{this.state.question}</QuestionText>
+        <QuestionText>{he.decode(this.state.question)}</QuestionText>
         {answerButtons}
       </Container>
     );

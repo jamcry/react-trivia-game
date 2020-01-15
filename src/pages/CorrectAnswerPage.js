@@ -29,9 +29,7 @@ const CorrectAnswerPage = (props) => {
       <Text color="green" bold big>Correct!</Text>
       <Text>You have earned {lastEarnedPoints} pts!</Text>
       <Text bold>Total: {totalPoints} pts</Text>
-      <ActionButton
-        onClick={goNextQuestion}
-      >
+      <ActionButton onClick={goNextQuestion}>
         Next Question
       </ActionButton>
     </Container>

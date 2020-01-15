@@ -3,7 +3,6 @@ import WelcomePage from './pages/WelcomePage';
 import CorrectAnswerPage from './pages/CorrectAnswerPage';
 import WrongAnswerPage from './pages/WrongAnswerPage';
 import QuestionPage from './pages/QuestionPage';
-import questionData from "./questionData";
 import { Header, HeaderText } from './components/styledComponents';
 import WinPage from './pages/WinPage';
 import OverlayLoader from './components/OverlayLoader';
@@ -31,25 +30,24 @@ const defaultState = {
 
 class App extends Component {
   state = defaultState;
-
-  // Mockup function for fetching data via API request
-  loadQuestionData = () => {
-    // Set loading state true before attempting API request
-    this.setState({
-      isLoading: true
-    });
-    // Mockup for API request, returns data after 2 seconds
-    const data = questionData;
-    setTimeout(
-      () => this.setState({
-        currentPage: pages.QUESTION,
-        questions: data.results,
-        numOfQuestions: data.results.length,
-        isLoading: false,
-        indexOfCurrentQuestion: 0,
-        currentQuestion: data.results[0]
-      })
-    ,2000);
+  
+  // Fetches question data via API and saves it into state
+  fetchQuestionData = (categoryId="", difficulty="easy") => {
+    this.setState({ isLoading: true });
+    const numOfQuestions = 10;
+    // Open Trivia DB API Reference: https://opentdb.com/api_config.php
+    const url = `https://opentdb.com/api.php?amount=${numOfQuestions}&category=${categoryId}&difficulty=${difficulty}`;
+    fetch(url)
+    .then(res => res.json())
+    .then(data => this.setState({
+      currentPage: pages.QUESTION,
+      questions: data.results,
+      numOfQuestions: data.results.length,
+      isLoading: false,
+      indexOfCurrentQuestion: 0,
+      currentQuestion: data.results[0]
+    }))
+    .catch(err => console.error(err.message));
   };
 
   resetGame = () => {
@@ -97,7 +95,7 @@ class App extends Component {
 
     if(currentPage === WELCOME) {
       currentComponent = (
-        <WelcomePage startGame={this.loadQuestionData} />
+        <WelcomePage startGame={this.fetchQuestionData} />
       );
     }
 
@@ -134,7 +132,7 @@ class App extends Component {
       );
     }
 
-        if(currentPage === TIMES_UP) {
+    if(currentPage === TIMES_UP) {
       headerContent = `Time's Up!`;
       currentComponent = (
         <TimeIsUpPage
@@ -156,7 +154,6 @@ class App extends Component {
       );
     }
     
-
     return (
       <div className="App">
         <Header>{headerContent}</Header>
