@@ -11,6 +11,7 @@ const Container = styled(CenteredFlexDiv)`
   flex-direction: column;
   padding: .5rem;
   height: 100%;
+  justify-content: flex-start;
 `;
 
 const Header = styled(CenteredFlexDiv)`

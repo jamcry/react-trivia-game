@@ -7,6 +7,7 @@ import WinPage from './pages/WinPage';
 import TimeIsUpPage from './pages/TimeIsUpPage';
 import { Header, HeaderText } from './components/styledComponents';
 import OverlayLoader from './components/OverlayLoader';
+import { CircularProgressbar } from 'react-circular-progressbar';
 
 // Constant variables for page rendering
 const pages = {

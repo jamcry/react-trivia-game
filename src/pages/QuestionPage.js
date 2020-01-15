@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 // import he for decoding HTML encoded question texts
 import he from "he";
+import CircularTimerView from "../components/CircularTimerView";
+
 import {
   Container,
   QuestionText,
@@ -60,7 +62,7 @@ class QuestionPage extends Component {
 
     return (
       <Container>
-        <h3>Time:{this.state.remainingSeconds}</h3>
+        <CircularTimerView duration={15} remaining={this.state.remainingSeconds} />
         <QuestionText>{he.decode(this.state.question)}</QuestionText>
         {answerButtons}
       </Container>
