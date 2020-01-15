@@ -7,7 +7,6 @@ import WinPage from './pages/WinPage';
 import TimeIsUpPage from './pages/TimeIsUpPage';
 import { Header, HeaderText } from './components/styledComponents';
 import OverlayLoader from './components/OverlayLoader';
-import { CircularProgressbar } from 'react-circular-progressbar';
 
 // Constant variables for page rendering
 const pages = {
@@ -40,14 +39,24 @@ class App extends Component {
     const url = `https://opentdb.com/api.php?amount=${numOfQuestions}&category=${categoryId}&difficulty=${difficulty}`;
     fetch(url)
       .then(res => res.json())
-      .then(data => this.setState({
-        currentPage: pages.QUESTION,
-        questions: data.results,
-        numOfQuestions: data.results.length,
-        isLoading: false,
-        indexOfCurrentQuestion: 0,
-        currentQuestion: data.results[0]
-      }))
+      .then(data => {
+        if (data.results.length === 0) {
+          this.setState({
+            isLoading: false,
+          });
+          window.alert("We can't bring questions for this category for now. Please try again or choose another category.");
+        }
+        else {
+          this.setState({
+            currentPage: pages.QUESTION,
+            questions: data.results,
+            numOfQuestions: data.results.length,
+            isLoading: false,
+            indexOfCurrentQuestion: 0,
+            currentQuestion: data.results[0]
+          })
+        }
+      })
       .catch(err => console.error(err.message));
   };
 
