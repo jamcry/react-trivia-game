@@ -42,7 +42,7 @@ class App extends Component {
       .then(data => {
         if (data.results.length === 0) {
           this.setState({
-            isLoading: false,
+            isLoading: true,
           });
           window.alert("We can't bring questions for this category for now. Please try again or choose another category.");
         }

@@ -9,9 +9,19 @@ const CenteredFlexDiv = styled.div`
 
 const Container = styled(CenteredFlexDiv)`
   flex-direction: column;
+  justify-content: flex-start;
   padding: .5rem;
   height: 100%;
-  justify-content: flex-start;
+`;
+
+const AbsoluteOverlayContainer = styled(CenteredFlexDiv)`
+  z-index: 999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
 `;
 
 const Header = styled(CenteredFlexDiv)`
@@ -48,14 +58,14 @@ const Button = styled.button`
 `;
 
 const ActionButton = styled(Button)`
-  padding: 0.4rem 2.5rem;
+  padding: 1.15rem;
   background: rgba(18,133,153, .75);
   color: white;
   border: none;
   letter-spacing: 2px;
   margin-top: 1.25rem;
-  width: 80%;
-  max-width: 256px;
+  width: 100%;
+  max-width: 800px;
   &:hover {
     background: rgba(18,133,153, 1);
   }
@@ -65,7 +75,6 @@ const ActionButton = styled(Button)`
 // Button animations was adapted from: https://www.w3schools.com/howto/howto_css_animate_buttons.asp
 const StartButton = styled(ActionButton)`
   transition: all 0.5s;
-  padding: 1.15rem ;
   span {
     display: inline-block;
     text-transform: uppercase;
@@ -92,10 +101,14 @@ const StartButton = styled(ActionButton)`
   }
 `;
 
+// Wrapper Component For Start Button
+const AnimatedStartButton = ({ text, ...props }) => {
+  return <StartButton {...props}><span>{text}</span></StartButton>
+};
+
 // Animated Home Button
 const HomeButton = styled(ActionButton)`
   transition: all 0.5s;
-  padding: 1.15rem ;
   span {
     display: inline-block;
     text-transform: uppercase;
@@ -122,11 +135,6 @@ const HomeButton = styled(ActionButton)`
   }
 `;
 
-// Wrapper Component For Start Button
-const AnimatedStartButton = ({ text, ...props }) => {
-  return <StartButton {...props}><span>{text}</span></StartButton>
-};
-
 // Wrapper Component For Home Button
 const AnimatedHomeButton = ({ text, ...props }) => {
   return <HomeButton {...props}><span>{text}</span></HomeButton>
@@ -134,7 +142,7 @@ const AnimatedHomeButton = ({ text, ...props }) => {
 
 const AnswerButton = styled(Button)`
   width: 100%;
-  max-width: 400px;
+  max-width: 800px;
   margin: .5rem 0;
   border: 0;
   background: #999;
@@ -168,19 +176,20 @@ const Form = styled.form`
   display: flex;
   align-items: center;
   flex-direction: column;
-  width: 100%;
+  width: 80%;
+  max-width: 800px;
 `;
 
 const Select = styled.select`
-  width: 80%;
-  max-width: 256px;
+  width: 100%;
   margin-bottom: .75rem;
-  height: 2.5rem;
+  height: 3.5rem;
 `;
 
 export {
   CenteredFlexDiv,
   Container,
+  AbsoluteOverlayContainer,
   Header,
   HeaderText,
   CenteredIcon,
