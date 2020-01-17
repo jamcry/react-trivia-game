@@ -1,12 +1,12 @@
 import React from 'react'
 import Lottie from 'react-lottie';
-import * as animationData from "../assets/win-animation.json";
+import * as animationData from "../assets/animation/win-animation.json";
 import {
   Container,
   CenteredIcon,
   Text,
   AnimatedHomeButton
-} from "../components/styledComponents";
+} from "../components/styled/styledComponents";
 
 const WinPage = ({ resetGame, numOfCorrectAnswers, totalPoints }) => {
   return (

@@ -4,7 +4,7 @@ import {
   Select,
   AnimatedStartButton,
   Form
-} from "../components/styledComponents";
+} from "../styled/styledComponents";
 
 class GameSettingsForm extends Component {
   state = {

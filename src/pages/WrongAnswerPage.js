@@ -1,12 +1,12 @@
 import React from 'react'
 import Lottie from 'react-lottie';
-import * as animationData from "../assets/wrong-animation.json";
+import * as animationData from "../assets/animation/wrong-animation.json";
 import {
   Container,
   CenteredIcon,
   Text,
   AnimatedHomeButton
-} from "../components/styledComponents";
+} from "../components/styled/styledComponents";
 
 const WrongAnswerPage = ({ resetGame, totalPoints, numOfCorrectAnswers }) => {
   return (

@@ -1,12 +1,12 @@
 import React from 'react'
 import Lottie from 'react-lottie';
-import * as animationData from "../assets/correct-animation.json";
+import * as animationData from "../assets/animation/correct-animation.json";
 import {
   Container,
   CenteredIcon,
   Text,
   ActionButton
-} from "../components/styledComponents";
+} from "../components/styled/styledComponents";
 
 const CorrectAnswerPage = ({ goNextQuestion, totalPoints, lastEarnedPoints }) => {
   return (

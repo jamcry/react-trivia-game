@@ -5,50 +5,32 @@ import WrongAnswerPage from './pages/WrongAnswerPage';
 import QuestionPage from './pages/QuestionPage';
 import WinPage from './pages/WinPage';
 import TimeIsUpPage from './pages/TimeIsUpPage';
-import { Header, HeaderText } from './components/styledComponents';
-import OverlayLoader from './components/OverlayLoader';
-
-// Constant variables for page rendering
-const pages = {
-  WELCOME: "WELCOME_PAGE",
-  QUESTION: "QUESTION_PAGE",
-  CORRECT_ANSWER: "CORRECT_ANSWER_PAGE",
-  WRONG_ANSWER: "WRONG_ANSWER_PAGE",
-  WIN: "WIN_PAGE",
-  TIMES_UP: "TIMES_UP_PAGE"
-};
-
-const defaultState = {
-  currentPage: pages.WELCOME,
-  questions: [],
-  numOfQuestions: 0,
-  indexOfCurrentQuestion: -1,
-  numOfCorrectAnswers: 0,
-  currentQuestion: null,
-  totalPoints: 0,
-};
+import { Header, HeaderText } from './components/styled/styledComponents';
+import OverlayLoader from './components/common/OverlayLoader';
+import { INITIAL_GAME_STATE, PAGES, OPEN_TRIVIA_BASE_URL } from "./constants";
 
 class App extends Component {
-  state = defaultState;
+  state = INITIAL_GAME_STATE;
 
   // Fetches question data via API and saves it into state
   fetchQuestionData = (categoryId = "", difficulty = "easy") => {
     this.setState({ isLoading: true });
     const numOfQuestions = 10;
     // Open Trivia DB API Reference: https://opentdb.com/api_config.php
-    const url = `https://opentdb.com/api.php?amount=${numOfQuestions}&category=${categoryId}&difficulty=${difficulty}`;
+    const url = OPEN_TRIVIA_BASE_URL +
+      `?amount=${numOfQuestions}&category=${categoryId}&difficulty=${difficulty}`;
     fetch(url)
       .then(res => res.json())
       .then(data => {
+  
         if (data.results.length === 0) {
           this.setState({
-            isLoading: true,
+            isLoading: true
           });
-          window.alert("We can't bring questions for this category for now. Please try again or choose another category.");
-        }
-        else {
+          window.alert("No questions for this category! Please choose another one or try again later.");
+        } else {
           this.setState({
-            currentPage: pages.QUESTION,
+            currentPage: PAGES.QUESTION_PAGE,
             questions: data.results,
             numOfQuestions: data.results.length,
             isLoading: false,
@@ -56,12 +38,13 @@ class App extends Component {
             currentQuestion: data.results[0]
           })
         }
+
       })
       .catch(err => console.error(err.message));
   };
 
   resetGame = () => {
-    this.setState(defaultState);
+    this.setState(INITIAL_GAME_STATE);
   };
 
   handleAnswer = (answer, remainingSeconds) => {
@@ -69,21 +52,21 @@ class App extends Component {
     if (answer === correctAnswer) {
       const pointsForQuestion = 50 + remainingSeconds * 10;
       this.setState(prevState => ({
-        currentPage: (prevState.numOfCorrectAnswers + 1 === prevState.numOfQuestions) ? pages.WIN : pages.CORRECT_ANSWER,
+        currentPage: (prevState.numOfCorrectAnswers + 1 === prevState.numOfQuestions) ? PAGES.WIN_PAGE : PAGES.CORRECT_ANSWER_PAGE,
         totalPoints: prevState.totalPoints + pointsForQuestion,
         lastEarnedPoints: pointsForQuestion,
         numOfCorrectAnswers: prevState.numOfCorrectAnswers + 1
       }));
     } else {
       this.setState({
-        currentPage: pages.WRONG_ANSWER
+        currentPage: PAGES.WRONG_ANSWER_PAGE
       });
     }
   }
 
   handleTimeOver = () => {
     this.setState({
-      currentPage: pages.TIMES_UP
+      currentPage: PAGES.TIMES_UP_PAGE
     });
   };
 
@@ -91,25 +74,24 @@ class App extends Component {
     this.setState(prevState => ({
       indexOfCurrentQuestion: prevState.indexOfCurrentQuestion + 1,
       currentQuestion: prevState.questions[prevState.indexOfCurrentQuestion + 1],
-      currentPage: pages.QUESTION
+      currentPage: PAGES.QUESTION_PAGE
     }))
   }
 
   render() {
     const { currentPage, numOfQuestions, indexOfCurrentQuestion } = this.state;
     const questionNumber = indexOfCurrentQuestion + 1; //prevent-off-by-one
-    const { WELCOME, QUESTION, CORRECT_ANSWER, WRONG_ANSWER, WIN, TIMES_UP } = pages;
 
     let currentComponent = null;
     let headerContent = <HeaderText>React Trivia Game</HeaderText>;
 
-    if (currentPage === WELCOME) {
+    if (currentPage === PAGES.WELCOME_PAGE) {
       currentComponent = (
         <WelcomePage startGame={this.fetchQuestionData} />
       );
     }
 
-    if (currentPage === QUESTION) {
+    if (currentPage === PAGES.QUESTION_PAGE) {
       headerContent = `Question ${questionNumber} / ${numOfQuestions}`;
       currentComponent = (
         <QuestionPage
@@ -120,7 +102,7 @@ class App extends Component {
       );
     }
 
-    if (currentPage === CORRECT_ANSWER) {
+    if (currentPage === PAGES.CORRECT_ANSWER_PAGE) {
       headerContent = `Question ${questionNumber} / ${numOfQuestions}`;
       currentComponent = (
         <CorrectAnswerPage
@@ -131,7 +113,7 @@ class App extends Component {
       );
     }
 
-    if (currentPage === WRONG_ANSWER) {
+    if (currentPage === PAGES.WRONG_ANSWER_PAGE) {
       headerContent = `Question ${questionNumber} / ${numOfQuestions}`;
       currentComponent = (
         <WrongAnswerPage
@@ -142,7 +124,7 @@ class App extends Component {
       );
     }
 
-    if (currentPage === TIMES_UP) {
+    if (currentPage === PAGES.TIMES_UP_PAGE) {
       headerContent = `Time's Up!`;
       currentComponent = (
         <TimeIsUpPage
@@ -152,8 +134,7 @@ class App extends Component {
       );
     }
 
-
-    if (currentPage === WIN) {
+    if (currentPage === PAGES.WIN_PAGE) {
       headerContent = `YOU WIN !`;
       currentComponent = (
         <WinPage

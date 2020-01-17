@@ -1,12 +1,12 @@
 import React from 'react'
 import Lottie from 'react-lottie';
-import * as animationData from "../assets/time-is-up-animation.json";
+import * as animationData from "../assets/animation/time-is-up-animation.json";
 import {
   Container,
   CenteredIcon,
   Text,
   AnimatedHomeButton
-} from "../components/styledComponents";
+} from "../components/styled/styledComponents";
 
 const TimeIsUpPage = ({ resetGame, totalPoints }) => {
   return (

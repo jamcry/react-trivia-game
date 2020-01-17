@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 // import he for decoding HTML encoded question texts
 import he from "he";
-import CircularTimerView from "../components/CircularTimerView";
+import CircularTimerView from "../components/common/CircularTimerView";
 
 import {
   Container,
   QuestionText,
   AnswerButton
-} from "../components/styledComponents";
+} from "../components/styled/styledComponents";
 
 /* Shuffles the items in the input array
  Source: https://javascript.info/task/shuffle */

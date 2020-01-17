@@ -1,11 +1,11 @@
 import React from 'react';
 import Lottie from 'react-lottie';
-import * as animationData from "../assets/trivia-animation.json";
-import GameSettingsForm from '../components/GameSettingsForm';
+import * as animationData from "../assets/animation/trivia-animation.json";
+import GameSettingsForm from '../components/common/GameSettingsForm';
 import {
   Container,
   CenteredIcon,
-} from "../components/styledComponents";
+} from "../components/styled/styledComponents";
 
 const WelcomePage = ({ startGame }) => {
   return (
