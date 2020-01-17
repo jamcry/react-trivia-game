@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 import Lottie from 'react-lottie';
-import * as animationData from "../assets/animation/win-animation.json";
+import * as animationData from '../assets/animation/win-animation.json';
 import {
   Container,
   CenteredIcon,
   Text,
   AnimatedHomeButton
-} from "../components/styled/styledComponents";
+} from '../components/styled/styledComponents';
 
 const WinPage = ({ resetGame, numOfCorrectAnswers, totalPoints }) => {
   return (
@@ -14,15 +14,19 @@ const WinPage = ({ resetGame, numOfCorrectAnswers, totalPoints }) => {
       <CenteredIcon>
         <Lottie options={{ animationData: animationData.default }} />
       </CenteredIcon>
-      <Text color="green" bold big>You Win!</Text>
-      <Text>Congratulations! You have answered all of the {numOfCorrectAnswers} questions correctly!</Text>
+
+      <Text color="green" bold big>
+        You Win!
+      </Text>
+
+      <Text>
+        Congratulations! You have answered all of the {numOfCorrectAnswers} questions correctly!
+      </Text>
       <Text bold>Total: {totalPoints} pts</Text>
-      <AnimatedHomeButton
-        text="Go Home"
-        onClick={resetGame}
-      />
+
+      <AnimatedHomeButton text="Go Home" onClick={resetGame} />
     </Container>
   );
-}
+};
 
 export default WinPage;

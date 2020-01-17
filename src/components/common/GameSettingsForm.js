@@ -1,33 +1,29 @@
-import React, { Component } from 'react'
-import {
-  Text,
-  Select,
-  AnimatedStartButton,
-  Form
-} from "../styled/styledComponents";
+import React, { Component } from 'react';
+import { Text, Select, AnimatedStartButton, Form } from '../styled/styledComponents';
 
 class GameSettingsForm extends Component {
   state = {
-    category: "",
-    difficulty: "easy"
+    category: '',
+    difficulty: 'easy'
   };
 
-  handleChange = (e) => {
+  handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     const { category, difficulty } = this.state;
     this.props.handleSubmit(category, difficulty);
-  }
+  };
 
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Text bold>Select Category</Text>
+
         <Select name="category" value={this.state.category} onChange={this.handleChange}>
           <option value="">Any Category</option>
           <option value="9">General Knowledge</option>
@@ -63,11 +59,9 @@ class GameSettingsForm extends Component {
           <option value="hard">Hard</option>
         </Select>
 
-        <AnimatedStartButton
-          text="Start"
-        />
+        <AnimatedStartButton text="Start" />
       </Form>
-    )
+    );
   }
 }
 

@@ -1,11 +1,8 @@
 import React from 'react';
 import Lottie from 'react-lottie';
-import * as animationData from "../assets/animation/trivia-animation.json";
+import * as animationData from '../assets/animation/trivia-animation.json';
 import GameSettingsForm from '../components/common/GameSettingsForm';
-import {
-  Container,
-  CenteredIcon,
-} from "../components/styled/styledComponents";
+import { Container, CenteredIcon } from '../components/styled/styledComponents';
 
 const WelcomePage = ({ startGame }) => {
   return (
@@ -13,6 +10,7 @@ const WelcomePage = ({ startGame }) => {
       <CenteredIcon>
         <Lottie options={{ animationData: animationData.default }} />
       </CenteredIcon>
+
       <GameSettingsForm handleSubmit={startGame} />
     </Container>
   );

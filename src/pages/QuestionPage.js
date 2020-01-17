@@ -1,26 +1,22 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 // import he for decoding HTML encoded question texts
-import he from "he";
-import CircularTimerView from "../components/common/CircularTimerView";
+import he from 'he';
+import CircularTimerView from '../components/common/CircularTimerView';
 
-import {
-  Container,
-  QuestionText,
-  AnswerButton
-} from "../components/styled/styledComponents";
+import { Container, QuestionText, AnswerButton } from '../components/styled/styledComponents';
 
 /* Shuffles the items in the input array
  Source: https://javascript.info/task/shuffle */
-const shuffle = (arr) => {
+const shuffle = arr => {
   return arr.sort(() => Math.random() - 0.5);
-}
+};
 
 class QuestionPage extends Component {
   state = {
-    question: "",
+    question: '',
     options: [],
     remainingSeconds: 15
-  }
+  };
 
   decrementRemainingSeconds = () => {
     this.setState(prevState => ({
@@ -43,12 +39,12 @@ class QuestionPage extends Component {
     if (this.state.remainingSeconds === 0) {
       this.props.handleTimeOver();
     }
-  }
+  };
 
   componentWillUnmount = () => {
     // Stop the timer before unmounting
     clearInterval(this.state.timer);
-  }
+  };
 
   render() {
     const answerButtons = this.state.options.map((option, index) => (
@@ -63,11 +59,13 @@ class QuestionPage extends Component {
     return (
       <Container>
         <CircularTimerView duration={15} remaining={this.state.remainingSeconds} />
+
         <QuestionText>{he.decode(this.state.question)}</QuestionText>
+
         {answerButtons}
       </Container>
     );
   }
-};
+}
 
 export default QuestionPage;

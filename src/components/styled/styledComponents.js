@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import React from "react";
+import styled from 'styled-components';
+import React from 'react';
 
 const CenteredFlexDiv = styled.div`
   display: flex;
@@ -10,7 +10,7 @@ const CenteredFlexDiv = styled.div`
 const Container = styled(CenteredFlexDiv)`
   flex-direction: column;
   justify-content: flex-start;
-  padding: .5rem;
+  padding: 0.5rem;
   height: 100%;
 `;
 
@@ -21,7 +21,7 @@ const AbsoluteOverlayContainer = styled(CenteredFlexDiv)`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0, 0, 0, 0.8);
 `;
 
 const Header = styled(CenteredFlexDiv)`
@@ -40,18 +40,18 @@ const HeaderText = styled.h1`
 const CenteredIcon = styled(CenteredFlexDiv)`
   width: 256px;
   height: 256px;
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   margin-bottom: 1rem;
 `;
 
 const Button = styled.button`
   padding: 0.4rem;
-  margin: .4rem;
+  margin: 0.4rem;
   background: none;
   border: 1px solid black;
   border-radius: 5px;
   color: black;
-  transition: .3s ease-out;
+  transition: 0.3s ease-out;
   &:hover {
     cursor: pointer;
   }
@@ -59,7 +59,7 @@ const Button = styled.button`
 
 const ActionButton = styled(Button)`
   padding: 1.15rem;
-  background: rgba(18,133,153, .75);
+  background: rgba(18, 133, 153, 0.75);
   color: white;
   border: none;
   letter-spacing: 2px;
@@ -67,7 +67,7 @@ const ActionButton = styled(Button)`
   width: 100%;
   max-width: 800px;
   &:hover {
-    background: rgba(18,133,153, 1);
+    background: rgba(18, 133, 153, 1);
   }
 `;
 
@@ -82,12 +82,12 @@ const StartButton = styled(ActionButton)`
     position: relative;
     transition: 0.3s;
     &:after {
-      content: "→";
+      content: '→';
       position: absolute;
       opacity: 0;
       top: 0;
       right: -20px;
-      transition: .3s;
+      transition: 0.3s;
     }
   }
   &:hover {
@@ -103,7 +103,11 @@ const StartButton = styled(ActionButton)`
 
 // Wrapper Component For Start Button
 const AnimatedStartButton = ({ text, ...props }) => {
-  return <StartButton {...props}><span>{text}</span></StartButton>
+  return (
+    <StartButton {...props}>
+      <span>{text}</span>
+    </StartButton>
+  );
 };
 
 // Animated Home Button
@@ -116,12 +120,12 @@ const HomeButton = styled(ActionButton)`
     position: relative;
     transition: 0.3s;
     &:before {
-      content: "←";
+      content: '←';
       position: absolute;
       opacity: 0;
       top: 0;
       left: -20px;
-      transition: .3s;
+      transition: 0.3s;
     }
   }
   &:hover {
@@ -137,34 +141,38 @@ const HomeButton = styled(ActionButton)`
 
 // Wrapper Component For Home Button
 const AnimatedHomeButton = ({ text, ...props }) => {
-  return <HomeButton {...props}><span>{text}</span></HomeButton>
+  return (
+    <HomeButton {...props}>
+      <span>{text}</span>
+    </HomeButton>
+  );
 };
 
 const AnswerButton = styled(Button)`
   width: 100%;
   max-width: 800px;
-  margin: .5rem 0;
+  margin: 0.5rem 0;
   border: 0;
   background: #999;
   color: white;
   border-bottom: 5px solid #666;
   padding: 1rem;
   &:hover {
-    background: #DE6D1D;
-    border-color: #9B4C14;
+    background: #de6d1d;
+    border-color: #9b4c14;
   }
   &:active {
-    background: #DEAE1D;
-    border-color: #C49404;
-    box-shadow: inset 0 0 10px #B38807;
+    background: #deae1d;
+    border-color: #c49404;
+    box-shadow: inset 0 0 10px #b38807;
   }
 `;
 
 const Text = styled.div`
   line-height: 1.5rem;
-  margin: .75rem .5rem .25rem .5rem;
-  font-size: ${props => props.big ? "36px" : "16px"};
-  font-weight: ${props => props.bold && "bold"};
+  margin: 0.75rem 0.5rem 0.25rem 0.5rem;
+  font-size: ${props => (props.big ? '36px' : '16px')};
+  font-weight: ${props => props.bold && 'bold'};
   color: ${props => props.color};
 `;
 
@@ -182,7 +190,7 @@ const Form = styled.form`
 
 const Select = styled.select`
   width: 100%;
-  margin-bottom: .75rem;
+  margin-bottom: 0.75rem;
   height: 3.5rem;
 `;
 

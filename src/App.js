@@ -7,27 +7,29 @@ import WinPage from './pages/WinPage';
 import TimeIsUpPage from './pages/TimeIsUpPage';
 import { Header, HeaderText } from './components/styled/styledComponents';
 import OverlayLoader from './components/common/OverlayLoader';
-import { INITIAL_GAME_STATE, PAGES, OPEN_TRIVIA_BASE_URL } from "./constants";
+import { INITIAL_GAME_STATE, PAGES, OPEN_TRIVIA_BASE_URL } from './constants';
 
 class App extends Component {
   state = INITIAL_GAME_STATE;
 
   // Fetches question data via API and saves it into state
-  fetchQuestionData = (categoryId = "", difficulty = "easy") => {
+  fetchQuestionData = (categoryId = '', difficulty = 'easy') => {
     this.setState({ isLoading: true });
     const numOfQuestions = 10;
     // Open Trivia DB API Reference: https://opentdb.com/api_config.php
-    const url = OPEN_TRIVIA_BASE_URL +
+    const url =
+      OPEN_TRIVIA_BASE_URL +
       `?amount=${numOfQuestions}&category=${categoryId}&difficulty=${difficulty}`;
     fetch(url)
       .then(res => res.json())
       .then(data => {
-  
         if (data.results.length === 0) {
           this.setState({
             isLoading: true
           });
-          window.alert("No questions for this category! Please choose another one or try again later.");
+          window.alert(
+            'No questions for this category! Please choose another one or try again later.'
+          );
         } else {
           this.setState({
             currentPage: PAGES.QUESTION_PAGE,
@@ -36,9 +38,8 @@ class App extends Component {
             isLoading: false,
             indexOfCurrentQuestion: 0,
             currentQuestion: data.results[0]
-          })
+          });
         }
-
       })
       .catch(err => console.error(err.message));
   };
@@ -52,7 +53,10 @@ class App extends Component {
     if (answer === correctAnswer) {
       const pointsForQuestion = 50 + remainingSeconds * 10;
       this.setState(prevState => ({
-        currentPage: (prevState.numOfCorrectAnswers + 1 === prevState.numOfQuestions) ? PAGES.WIN_PAGE : PAGES.CORRECT_ANSWER_PAGE,
+        currentPage:
+          prevState.numOfCorrectAnswers + 1 === prevState.numOfQuestions
+            ? PAGES.WIN_PAGE
+            : PAGES.CORRECT_ANSWER_PAGE,
         totalPoints: prevState.totalPoints + pointsForQuestion,
         lastEarnedPoints: pointsForQuestion,
         numOfCorrectAnswers: prevState.numOfCorrectAnswers + 1
@@ -62,7 +66,7 @@ class App extends Component {
         currentPage: PAGES.WRONG_ANSWER_PAGE
       });
     }
-  }
+  };
 
   handleTimeOver = () => {
     this.setState({
@@ -75,8 +79,8 @@ class App extends Component {
       indexOfCurrentQuestion: prevState.indexOfCurrentQuestion + 1,
       currentQuestion: prevState.questions[prevState.indexOfCurrentQuestion + 1],
       currentPage: PAGES.QUESTION_PAGE
-    }))
-  }
+    }));
+  };
 
   render() {
     const { currentPage, numOfQuestions, indexOfCurrentQuestion } = this.state;
@@ -86,9 +90,7 @@ class App extends Component {
     let headerContent = <HeaderText>React Trivia Game</HeaderText>;
 
     if (currentPage === PAGES.WELCOME_PAGE) {
-      currentComponent = (
-        <WelcomePage startGame={this.fetchQuestionData} />
-      );
+      currentComponent = <WelcomePage startGame={this.fetchQuestionData} />;
     }
 
     if (currentPage === PAGES.QUESTION_PAGE) {
@@ -127,10 +129,7 @@ class App extends Component {
     if (currentPage === PAGES.TIMES_UP_PAGE) {
       headerContent = `Time's Up!`;
       currentComponent = (
-        <TimeIsUpPage
-          totalPoints={this.state.totalPoints}
-          resetGame={this.resetGame}
-        />
+        <TimeIsUpPage totalPoints={this.state.totalPoints} resetGame={this.resetGame} />
       );
     }
 

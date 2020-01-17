@@ -1,12 +1,7 @@
-import React from 'react'
+import React from 'react';
 import Lottie from 'react-lottie';
-import * as animationData from "../assets/animation/correct-animation.json";
-import {
-  Container,
-  CenteredIcon,
-  Text,
-  ActionButton
-} from "../components/styled/styledComponents";
+import * as animationData from '../assets/animation/correct-animation.json';
+import { Container, CenteredIcon, Text, ActionButton } from '../components/styled/styledComponents';
 
 const CorrectAnswerPage = ({ goNextQuestion, totalPoints, lastEarnedPoints }) => {
   return (
@@ -14,14 +9,18 @@ const CorrectAnswerPage = ({ goNextQuestion, totalPoints, lastEarnedPoints }) =>
       <CenteredIcon>
         <Lottie options={{ animationData: animationData.default, loop: false }} />
       </CenteredIcon>
-      <Text color="green" bold big>Correct!</Text>
+
+      <Text color="green" bold big>
+        Correct!
+      </Text>
+
       <Text>You have earned {lastEarnedPoints} pts!</Text>
+
       <Text bold>Total: {totalPoints} pts</Text>
-      <ActionButton onClick={goNextQuestion}>
-        Next Question
-      </ActionButton>
+
+      <ActionButton onClick={goNextQuestion}>Next Question</ActionButton>
     </Container>
   );
-}
+};
 
 export default CorrectAnswerPage;
