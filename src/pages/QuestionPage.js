@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
-// import he for decoding HTML encoded question texts
-import he from 'he';
+import he from 'he'; // for decoding HTML encoded question texts
+import shuffleArray from '../helpers/shuffleArray';
 import CircularTimerView from '../components/common/CircularTimerView';
-
 import { Container, QuestionText, AnswerButton } from '../components/styled/styledComponents';
-
-/* Shuffles the items in the input array
- Source: https://javascript.info/task/shuffle */
-const shuffle = arr => {
-  return arr.sort(() => Math.random() - 0.5);
-};
 
 class QuestionPage extends Component {
   state = {
@@ -26,7 +19,7 @@ class QuestionPage extends Component {
 
   componentDidMount = () => {
     const { question, correct_answer, incorrect_answers } = this.props.data;
-    const options = shuffle([correct_answer, ...incorrect_answers]);
+    const options = shuffleArray([correct_answer, ...incorrect_answers]);
     const timer = setInterval(this.decrementRemainingSeconds, 1000);
     this.setState({
       question,

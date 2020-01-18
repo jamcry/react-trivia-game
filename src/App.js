@@ -7,7 +7,7 @@ import WinPage from './pages/WinPage';
 import TimeIsUpPage from './pages/TimeIsUpPage';
 import { Header, HeaderText } from './components/styled/styledComponents';
 import OverlayLoader from './components/common/OverlayLoader';
-import { INITIAL_GAME_STATE, PAGES, OPEN_TRIVIA_BASE_URL } from './constants';
+import { INITIAL_GAME_STATE, PAGES, OPEN_TRIVIA_BASE_URL } from './helpers/constants';
 
 class App extends Component {
   state = INITIAL_GAME_STATE;
@@ -51,9 +51,12 @@ class App extends Component {
   handleAnswer = (answer, remainingSeconds) => {
     const correctAnswer = this.state.currentQuestion.correct_answer;
     if (answer === correctAnswer) {
+      // Calculate the earned point with respect to remaining time (Bonus#5)
       const pointsForQuestion = 50 + remainingSeconds * 10;
+
       this.setState(prevState => ({
         currentPage:
+          // Return to Win Page if current question is the last one
           prevState.numOfCorrectAnswers + 1 === prevState.numOfQuestions
             ? PAGES.WIN_PAGE
             : PAGES.CORRECT_ANSWER_PAGE,
@@ -88,6 +91,11 @@ class App extends Component {
 
     let currentComponent = null;
     let headerContent = <HeaderText>React Trivia Game</HeaderText>;
+
+    /*
+     Create the component to render according to the currently selected page.
+     Acts like a simple router.
+    */
 
     if (currentPage === PAGES.WELCOME_PAGE) {
       currentComponent = <WelcomePage startGame={this.fetchQuestionData} />;

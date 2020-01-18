@@ -1,4 +1,13 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Trivia Game
+
+React Trivia Quiz Game developed with React.
+
+## Dependencies
+
+- he : for decoding HTML encoded question texts
+- react-circular-progressbar : for showing circular timer progress
+- react-lottie : for lottie json animations
+- styled-components: for styling
 
 ## Available Scripts
 
